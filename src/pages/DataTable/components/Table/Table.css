@@ -1,0 +1,14 @@
+.table {
+  width: 100%;
+}
+
+.ant-table {
+  margin-top: 20px;
+}
+.custom-table {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  border-radius: 8px; /* 可选，圆角 */
+  border: 1px solid #e0e0e0; /* 可选，边框颜色 */
+  /*padding: 16px; !* 可选，增加内边距 *!*/
+}
+
