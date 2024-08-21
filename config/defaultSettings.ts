@@ -1,5 +1,4 @@
 import { ProLayoutProps } from '@ant-design/pro-components';
-
 /**
  * @name
  */
@@ -14,7 +13,7 @@ const Settings: ProLayoutProps & {
   fixedHeader: true,
   fixSiderbar: true,
   pwa: true,
-  logo: "https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg",
+  logo: './logo.svg',
   token: {},
   splitMenus: false,
   colorWeak: false,

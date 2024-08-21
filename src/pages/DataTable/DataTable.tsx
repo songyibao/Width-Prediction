@@ -4,7 +4,7 @@ import Table from './components/Table/Table'; // Assuming the DataTable componen
 
 const DataTable: React.FC = () => {
   return (
-    <div style={{ padding:10,minHeight: '100vh',backgroundColor:"white",border: "1px solid #e0e0e0" }}>
+    <div style={{ padding:0,minHeight: '100vh' }}>
         <Table />
     </div>
   );

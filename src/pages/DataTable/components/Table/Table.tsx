@@ -128,6 +128,11 @@ const columns: ProColumns<DataItem>[] = [
   {
     title: '生产需要实际宽度',
     dataIndex: 'col23',
+    render: (text, record) => (
+      <span style={{ color: 'blue' }}>
+        {text}
+      </span>
+    ),
   },
   {
     title: '备用24',
@@ -158,10 +163,20 @@ const columns: ProColumns<DataItem>[] = [
   {
     title: '修间刀刀距',
     dataIndex: 'actualWidth',
+    render: (text, record) => (
+      <span style={{ color: 'red' }}>
+        {text}
+      </span>
+    ),
   },
   {
     title: '胶片宽度预测值',
     dataIndex: 'predictedWidth',
+    render: (text, record) => (
+      <span style={{ color: 'green' }}>
+        {text}
+      </span>
+    ),
   },
   {
     title: '时间',
@@ -171,7 +186,7 @@ const columns: ProColumns<DataItem>[] = [
 ];
 
 const Table: React.FC = () => {
-  const [data, setData] = useState<DataItem[]>([]);
+  const [data, setData] = useState<DataItem[]>(Array(5).fill({}));
   const chartRef = useRef<HTMLDivElement | null>(null);
   const chart1Ref = useRef<HTMLDivElement | null>(null);
   const maxDataLength = 20;
@@ -226,7 +241,7 @@ const Table: React.FC = () => {
       const chartInstance = echarts.init(chartRef.current);
       const option = {
         title: {
-          text: '生产需要宽度与胶片预测宽度'
+          text: '　生产需要宽度/胶片预测宽度'
         },
         tooltip: {
           trigger: 'axis',
@@ -255,12 +270,18 @@ const Table: React.FC = () => {
             type: 'line',
             showSymbol: false,
             data: data.map(item => [item.timestamp, item.predictedWidth]), // 格式化为时间-值对
+            itemStyle: {
+              color: 'green'  // 设置线条颜色为绿色
+            }
           },
           {
             name: '生产需要实际宽度',
             type: 'line',
             showSymbol: false,
             data: data.map(item => [item.timestamp, item.col23]), // 格式化为时间-值对
+            itemStyle: {
+              color: 'blue'  // 设置线条颜色为绿色
+            }
           }
         ]
       };
@@ -271,7 +292,7 @@ const Table: React.FC = () => {
       const chart1Instance = echarts.init(chart1Ref.current);
       const option = {
         title: {
-          text: '修间刀刀距'
+          text: '　修间刀刀距'
         },
         tooltip: {
           trigger: 'axis',
@@ -300,6 +321,9 @@ const Table: React.FC = () => {
             type: 'line',
             showSymbol: false,
             data: data.map(item => [item.timestamp, item.actualWidth]), // 格式化为时间-值对
+            itemStyle: {
+              color: 'red'  // 设置线条颜色为绿色
+            }
           }
         ]
       };
@@ -319,13 +343,13 @@ const Table: React.FC = () => {
   }, [data]);
 
   return (
-    <div>
+    <div >
       <ProTable<DataItem>
         columns={columns}
         dataSource={data}
         search={false}
         dateFormatter="string"
-        headerTitle="胶片宽度预测和控制"
+        headerTitle={<span style={{ fontWeight: 'bold' }}>胶片宽度预测控制</span>}
         pagination={{
           pageSize: 5,
           showSizeChanger: true,
@@ -333,7 +357,7 @@ const Table: React.FC = () => {
         }}
         className="custom-table"
       />
-      <div style={{width: '100%', height: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center',marginTop:10}} className="custom-table">
+      <div style={{width: '100%', height: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center',marginTop:10,background:"white"}} className="custom-table">
         <div ref={chartRef} style={{width: '50%', height: '400px', marginTop: '20px'}}/>
         <div ref={chart1Ref} style={{width: '50%', height: '400px', marginTop: '20px'}}/>
       </div>
