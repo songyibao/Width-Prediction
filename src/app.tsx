@@ -19,17 +19,46 @@ export async function getInitialState(): Promise<{
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
 }> {
+  // const fetchUserInfo = async () => {
+  //   try {
+  //     const msg = await queryCurrentUser({
+  //       skipErrorHandler: true,
+  //     });
+  //     return msg.data;
+  //   } catch (error) {
+  //     history.push(loginPath);
+  //   }
+  //   return undefined;
+  // };
   const fetchUserInfo = async () => {
-    try {
-      const msg = await queryCurrentUser({
-        skipErrorHandler: true,
-      });
-      return msg.data;
-    } catch (error) {
-      history.push(loginPath);
-    }
-    return undefined;
-  };
+    return {
+        name: '中国海洋大学',
+        avatar: 'avatar.png',
+        userid: '00000001',
+        email: 'ouc.edu.cn',
+        signature: '海纳百川，取则行远',
+        title: '管理员',
+        group: '中国海洋大学',
+        tags: [
+        ],
+        notifyCount: 12,
+        unreadCount: 11,
+        country: 'China',
+        access: 'admin',
+        geographic: {
+          province: {
+            label: '山东省',
+            key: '266100',
+          },
+          city: {
+            label: '青岛市',
+            key: '266100',
+          },
+        },
+        address: '青岛市松岭路238号',
+        phone: '+86(0)-532-66782730',
+      }
+  }
   // 如果不是登录页面，执行
   const { location } = history;
   if (location.pathname !== loginPath) {
@@ -49,7 +78,7 @@ export async function getInitialState(): Promise<{
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
-    actionsRender: () => [<Question key="doc" />],
+    // actionsRender: () => [<Question key="doc" />],
     avatarProps: {
       src: initialState?.currentUser?.avatar,
       title: <AvatarName />,
@@ -62,11 +91,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
-      const { location } = history;
+      // const { location } = history;
       // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
-        history.push(loginPath);
-      }
+      // if (!initialState?.currentUser && location.pathname !== loginPath) {
+      //   history.push(loginPath);
+      // }
     },
     bgLayoutImgList: [
       {
